@@ -1,14 +1,16 @@
 # TurboStealer
 
-For **educational purposes** only, this app aims to spread awareness about how insecure some information is in our computers.  
+For **educational purposes** only, this program aims to spread awareness about how insecure some information is in our computers. Even if information like your passwords is encrypted, if someone gains access to your computer it will be at risk of being stolen. 
 
 **TurboStealer** is a command line application programmed in python that is able to steal information from the computer running it. Currently, it is capable of stealing:
 - **Emails** from:  
   - Windows registry
   - Windows credentials
-  - Chromium based browsers
+  - Some Chromium based browsers
+  - Some Firefox based browsers
 - **Usernames and passwords** from:  
-  - Chromium based browsers
+  - Some Chromium based browsers
+  - Some Firefox based browsers
 
 # Usage
 
