@@ -1,8 +1,8 @@
-# TurboStealer
+# Turbo Stealer
 
 For **educational purposes** only, this program aims to spread awareness about how insecure some information is in our computers. Even if information like your passwords is encrypted, if someone gains access to your computer it will be at risk of being stolen. 
 
-**TurboStealer** is a command line application programmed in python that is able to steal information from the computer running it. Currently, it is capable of stealing:
+**Turbo Stealer** is a command line application programmed in python that is able to steal information from the computer running it. Currently, it is capable of stealing:
 - **Emails** from:  
   - Windows registry
   - Windows credentials
@@ -22,7 +22,7 @@ For **educational purposes** only, this program aims to spread awareness about h
 Some settings can be changed using command line arguments:  
 
 - ```t```, ```target``` or ```targets```:  
-  Changes the kind of information **TurboStealer** looks for. Multiple values can be selected by separating them with comas.  
+  Changes the kind of information **Turbo Stealer** looks for. Multiple values can be selected by separating them with comas.  
 
   **Values:**  
   - ```m```, ```mail``` or ```mails```:  
